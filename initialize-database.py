@@ -8,11 +8,11 @@ APP_ROOT = os.path.join(os.path.dirname(__file__), '..')   # refers to applicati
 dotenv_path = os.path.join(APP_ROOT, '.env')
 load_dotenv(dotenv_path)
 
-mongo = os.getenv('MONGO')
+#mongo = os.getenv('MONGO')
 
 client = pymongo.MongoClient(mongo)
 
-db = client['recipe_app']
+db = client['recipe_db']
 
 users = db['users']
 roles = db['roles']

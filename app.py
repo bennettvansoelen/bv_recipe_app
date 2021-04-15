@@ -33,7 +33,7 @@ mongo = os.getenv('MONGO')
 
 client = pymongo.MongoClient(mongo)
 
-db = client['recipe_app'] # Mongo collection
+db = client['recipe_db'] # Mongo collection
 users = db['users'] # Mongo document
 roles = db['roles'] # Mongo document
 categories = db['categories']
