@@ -1,2 +1,2 @@
-# bv_recipe_app
+# Bennett's Recipe Database
 Recipe app for Software Design
