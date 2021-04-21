@@ -12,7 +12,7 @@
 </head>
 
 <body>
-  <div class="container">
+  <div class="container-lg">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <a class="navbar-brand" href="/">
         <svg class="bi bi-house-door" width="2rem" height="2rem" viewBox="0 0 16 16" fill="currentColor"
@@ -34,18 +34,26 @@
           <li class="nav-item">
             {% if current_user.is_authenticated %}
             <a class="nav-link" href="{{ url_for('logout')}}">Logout</a>
-            <a class="nav-link"
-              href="{{ url_for('my_account', user_id=current_user['_id']) }}">{{ current_user.username }}</a>
+            <a class="nav-link" href="{{ url_for('my_account', user_id=current_user['_id']) }}">{{ current_user.username
+              }}</a>
             {% else %}
             <a class="nav-link" href="{{ url_for('login')}}">Login</a>
             {% endif %}
           </li>
           {% if current_user['role'] == 'admin' %}
-          <li>
-            <a class="nav-link" href="{{ url_for('admin_recipes') }}">Recipe Administration</a>
-          </li>
-          <li>
-            <a class="nav-link" href="{{ url_for('admin_users') }}">User Administration</a>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              Administration
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li>
+                <a class="dropdown-item" href="{{ url_for('admin_recipes') }}">Recipe Administration</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="{{ url_for('admin_users') }}">User Administration</a>
+              </li>
+            </ul>
           </li>
           {% endif %}
           {% if current_user['role'] == 'admin' or current_user['role'] == 'contributor' %}
@@ -142,7 +150,7 @@
             '<button id="removeIngredient" class="removeIngredientDiv btn btn-outline-danger">-</button>' +
             '<input  id="recipe_ingredient" name="ingredients" type="text" class="form-control" placeholder="next ingredient" required autofocus>'
           );
-        
+
           newTextBoxDiv.appendTo("#TextBoxDivIngredients");
           ingredientCounter++;
         });
@@ -150,12 +158,12 @@
         $("#TextBoxesGroupIngredients").on('click', '#removeIngredient', function (event) {
           console.log(ingredientCounter);
           event.preventDefault(); // cancel default behavior 
-          
+
           if (ingredientCounter <= 1) {
             $("#removeIngredient").prop('disabled', true);
             return false;
           }
-          
+
           if (ingredientCounter <= 3) {
             $("#removeIngredient").hide();
           }
