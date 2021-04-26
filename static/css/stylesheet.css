@@ -18,3 +18,12 @@ label.print{
 .navbar-nav>li {
   flex: 1;
 }
+
+#chefHat {
+  vertical-align: right;
+  margin-right: 0px;
+  margin-left: auto;
+  justify-content: right;
+  width: 15rem;
+  height: auto;
+}
