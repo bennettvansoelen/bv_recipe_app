@@ -13,6 +13,11 @@
 </div>
 
 <div class="form-group">
+    <label class="print">Cook time:</label>
+    <p style="display:inline;">{{ recipe['cook_time'] }}</p>
+</div>
+
+<div class="form-group">
     <label class="print" for="recipe_ingredients"> Ingredients: </label>
     {% for ingredient in recipe['ingredients'] %}
     <p> - {{ ingredient }} </p>

@@ -37,6 +37,7 @@ db = client['recipe_db'] # Mongo collection
 users = db['users'] # Mongo document
 roles = db['roles'] # Mongo document
 categories = db['categories']
+types = db['types']
 recipes = db['recipes']
 
 login = LoginManager()
@@ -337,7 +338,7 @@ def print_recipe(recipe_id):
 @login_required
 @roles_required('admin')
 def admin_recipes():
-    return render_template('recipe-admin.html', all_categories=categories.find(), all_recipes=recipes.find())
+    return render_template('recipe-admin.html', all_types=types.find(), all_categories=categories.find(), all_recipes=recipes.find())
 
 # administrators and contributors can add new recipes
 @app.route('/recipes/add-recipe', methods=['GET', 'POST'])
@@ -350,6 +351,8 @@ def add_recipe():
         new_recipe = {
             'recipe_name': form['recipe_name'],
             'category': form['category'],
+            'type': form['type'],
+            'cook_time': form['cook_time'],
             'ingredients': form.getlist('ingredients'),
             'preparation': form.getlist('steps'),
             'notes': form['notes'],
@@ -361,7 +364,7 @@ def add_recipe():
         recipes.insert_one(new_recipe)
         flash('New recipe has been added.', 'success')
         return redirect(url_for('view_recipes'))
-    return render_template('new-recipe.html', all_categories=categories.find())
+    return render_template('new-recipe.html', all_categories=categories.find(), all_types=types.find())
 
 @app.route('/recipes/edit-recipe/<recipe_id>', methods=['GET', 'POST'])
 @login_required
@@ -369,7 +372,7 @@ def add_recipe():
 def edit_recipe(recipe_id):
     edit_recipe = recipes.find_one({'_id': ObjectId(recipe_id)})
     if edit_recipe:
-        return render_template('edit-recipe.html', recipe=edit_recipe, all_categories=categories.find())
+        return render_template('edit-recipe.html', recipe=edit_recipe, all_categories=categories.find(), all_types=types.find())
     flash('Recipe not found.', 'danger')
     return redirect(url_for('admin_recipes'))
 
@@ -383,6 +386,8 @@ def update_recipe(recipe_id):
             {
             'recipe_name': form['recipe_name'],
             'category': form['category'],
+            'type': form['type'],
+            'cook_time': form['cook_time'],
             'ingredients': form.getlist('ingredients'),
             'preparation': form.getlist('steps'),
             'notes': form['notes'],
@@ -394,7 +399,7 @@ def update_recipe(recipe_id):
         update_recipe = recipes.find_one({'_id': ObjectId(recipe_id)})
         flash(update_recipe['recipe_name'] + ' has been updated.', 'success')
         return redirect(url_for('view_recipes'))
-    return render_template('edit-recipe.html', all_categories=categories.find())
+    return render_template('edit-recipe.html', all_categories=categories.find(), all_types=types.find())
 
 # administrators can delete recipes
 @app.route('/recipes/delete-recipe/<recipe_id>', methods=['POST'])

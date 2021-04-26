@@ -2,3 +2,19 @@ label.print{
   font-style: italic;
   font-weight: bold;
 }
+
+.navbar-brand, .navbar-nav, .navbar-nav>li {
+  float:none !important;
+}
+
+.navbar{
+  float: none !important;
+}
+
+.navbar-nav {
+  display:flex;
+}
+
+.navbar-nav>li {
+  flex: 1;
+}
