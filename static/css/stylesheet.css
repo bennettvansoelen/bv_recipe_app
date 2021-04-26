@@ -19,15 +19,3 @@ label.print{
   flex: 1;
 }
 
-#chefHat {
-  vertical-align: right;
-  margin-right: 0px;
-  margin-left: auto;
-  padding-right: 0px;
-  padding-left: auto;
-  justify-content: right;
-  align-content: right;
-  width: 15rem;
-  height: auto;
-  float: right;
-}
