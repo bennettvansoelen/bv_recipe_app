@@ -124,6 +124,8 @@ def search():
         search_term = form['search_string']
         if (search_term != ''):
             return render_template('index.html', all_recipes=recipes.find({'$text': {'$search': search_term}}))
+        else:
+            return render_template('index.html', all_recipes=recipes.find())
         return url_for("index")
     print("get request")
     return url_for("index")
