@@ -12,6 +12,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 bcrypt = Bcrypt(app)
 
+
 ############ TO DO #############
 
 # fix it so contributors can edit and delete their own recipes, but admins can edit and delete everyone's recipes
@@ -220,6 +221,7 @@ def admin_add_user():
         
         password = request.form['password']
         pwd_hash = bcrypt.generate_password_hash(password)
+
         
         email = users.find_one({"email": request.form['email']})
         if email:
@@ -275,7 +277,7 @@ def admin_update_user(user_id):
             'first_name': form['first_name'],
             'last_name': form['last_name'],
             'email': form['email'],
-            'password': password,
+            'password': pwd_hash,
             'role': form['role'],
             'date_added': form['date_added'],
             'date_modified': datetime.datetime.now()
@@ -419,4 +421,4 @@ def delete_recipe(recipe_id):
 
 
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run(debug=True)
